@@ -1,0 +1,8 @@
+com.timewidget.digitalclock.app-pngs-0 /workspace/android-widget/app/build/generated/res/pngs/release
+com.timewidget.digitalclock.app-resValues-1 /workspace/android-widget/app/build/generated/res/resValues/release
+com.timewidget.digitalclock.app-mergeReleaseResources-2 /workspace/android-widget/app/build/intermediates/incremental/release/mergeReleaseResources/merged.dir
+com.timewidget.digitalclock.app-mergeReleaseResources-3 /workspace/android-widget/app/build/intermediates/incremental/release/mergeReleaseResources/stripped.dir
+com.timewidget.digitalclock.app-merged-not-compiled-resources-4 /workspace/android-widget/app/build/intermediates/merged-not-compiled-resources/release
+com.timewidget.digitalclock.app-merged_res-5 /workspace/android-widget/app/build/intermediates/merged_res/release
+com.timewidget.digitalclock.app-main-6 /workspace/android-widget/app/src/main/res
+com.timewidget.digitalclock.app-release-7 /workspace/android-widget/app/src/release/res

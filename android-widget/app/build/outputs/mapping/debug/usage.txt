@@ -1,0 +1,11 @@
+com.timewidget.digitalclock.R$color
+com.timewidget.digitalclock.R$drawable
+com.timewidget.digitalclock.R$id:
+    private void <init>()
+com.timewidget.digitalclock.R$layout:
+    private void <init>()
+com.timewidget.digitalclock.R$mipmap
+com.timewidget.digitalclock.R$string
+com.timewidget.digitalclock.R$style
+com.timewidget.digitalclock.R$xml
+com.timewidget.digitalclock.R

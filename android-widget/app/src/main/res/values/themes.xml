@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Theme.DigitalClockWidget" parent="Theme.Material3.DayNight">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/material_dynamic_primary80</item>
+<resources>
+    <!-- Lightweight theme using standard Android framework -->
+    <style name="Theme.DigitalClockWidget" parent="android:Theme.DeviceDefault">
+        <!-- Minimal theme for widget app -->
     </style>
 </resources>

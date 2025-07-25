@@ -1,0 +1,16 @@
+# compiler: R8
+# compiler_version: 8.1.68
+# min_api: 21
+# common_typos_disable
+# {"id":"com.android.tools.r8.mapping","version":"2.2"}
+# pg_map_id: 2ee532a
+# pg_map_hash: SHA-256 2ee532aebb84ad2bec0749a2232eb8f13abce44181be172c259d06b56c754cf7
+com.timewidget.digitalclock.DigitalClockWidget -> com.timewidget.digitalclock.DigitalClockWidget:
+# {"id":"sourceFile","fileName":"DigitalClockWidget.java"}
+    19:19:void <init>() -> <init>
+    66:68:void onEnabled(android.content.Context) -> onEnabled
+    55:62:void onReceive(android.content.Context,android.content.Intent) -> onReceive
+    49:51:void onUpdate(android.content.Context,android.appwidget.AppWidgetManager,int[]) -> onUpdate
+    41:45:void setAlarm(android.content.Context) -> setAlarm
+    35:38:void updateAll(android.content.Context) -> updateAll
+    24:32:void updateWidget(android.content.Context,android.appwidget.AppWidgetManager,int) -> updateWidget

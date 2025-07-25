@@ -1,0 +1,30 @@
+Marking layout:digital_clock_widget:2130968576 reachable: referenced from /workspace/android-widget/app/build/intermediates/dex/release/minifyReleaseWithR8/classes.dex
+Marking id:widget_time:2130903041 reachable: referenced from /workspace/android-widget/app/build/intermediates/dex/release/minifyReleaseWithR8/classes.dex
+Marking id:widget_date:2130903040 reachable: referenced from /workspace/android-widget/app/build/intermediates/dex/release/minifyReleaseWithR8/classes.dex
+@color/black : reachable=false
+@color/white : reachable=false
+@drawable/widget_background : reachable=false
+@id/widget_date : reachable=true
+@id/widget_time : reachable=true
+@layout/digital_clock_widget : reachable=true
+    @drawable/widget_background
+@mipmap/ic_launcher : reachable=true
+@string/app_name : reachable=true
+@string/widget_description : reachable=false
+@style/Theme_DigitalClockWidget : reachable=true
+@xml/digital_clock_widget_info : reachable=true
+    @layout/digital_clock_widget
+    @string/widget_description
+
+The root reachable resources are:
+ id:widget_date:2130903040
+ id:widget_time:2130903041
+ layout:digital_clock_widget:2130968576
+ mipmap:ic_launcher:2131034112
+ string:app_name:2131099648
+ style:Theme_DigitalClockWidget:2131165184
+ xml:digital_clock_widget_info:2131230720
+Unused resources are: 
+ color:black:2130771968
+ color:white:2130771969
+Resource shrinking did not work (grew from 3875 to 3979); using original instead
