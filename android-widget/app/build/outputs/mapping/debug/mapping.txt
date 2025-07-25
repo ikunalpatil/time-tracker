@@ -3,14 +3,14 @@
 # min_api: 21
 # common_typos_disable
 # {"id":"com.android.tools.r8.mapping","version":"2.2"}
-# pg_map_id: 2ee532a
-# pg_map_hash: SHA-256 2ee532aebb84ad2bec0749a2232eb8f13abce44181be172c259d06b56c754cf7
+# pg_map_id: 4db890f
+# pg_map_hash: SHA-256 4db890f841c799f825319c74f46bacd95e87889d8364e852d421aa8ba6e24677
 com.timewidget.digitalclock.DigitalClockWidget -> com.timewidget.digitalclock.DigitalClockWidget:
 # {"id":"sourceFile","fileName":"DigitalClockWidget.java"}
-    19:19:void <init>() -> <init>
-    66:68:void onEnabled(android.content.Context) -> onEnabled
-    55:62:void onReceive(android.content.Context,android.content.Intent) -> onReceive
-    49:51:void onUpdate(android.content.Context,android.appwidget.AppWidgetManager,int[]) -> onUpdate
-    41:45:void setAlarm(android.content.Context) -> setAlarm
-    35:38:void updateAll(android.content.Context) -> updateAll
-    24:32:void updateWidget(android.content.Context,android.appwidget.AppWidgetManager,int) -> updateWidget
+    20:20:void <init>() -> <init>
+    72:74:void onEnabled(android.content.Context) -> onEnabled
+    61:68:void onReceive(android.content.Context,android.content.Intent) -> onReceive
+    55:57:void onUpdate(android.content.Context,android.appwidget.AppWidgetManager,int[]) -> onUpdate
+    42:51:void setAlarm(android.content.Context) -> setAlarm
+    36:39:void updateAll(android.content.Context) -> updateAll
+    25:33:void updateWidget(android.content.Context,android.appwidget.AppWidgetManager,int) -> updateWidget

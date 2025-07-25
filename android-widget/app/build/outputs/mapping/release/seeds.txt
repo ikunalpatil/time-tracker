@@ -1,9 +1,9 @@
 com.timewidget.digitalclock.DigitalClockWidget
 com.timewidget.digitalclock.DigitalClockWidget: java.lang.String UPDATE_ACTION
-com.timewidget.digitalclock.DigitalClockWidget: void setAlarm(android.content.Context)
-com.timewidget.digitalclock.DigitalClockWidget: void onReceive(android.content.Context,android.content.Intent)
 com.timewidget.digitalclock.DigitalClockWidget: void onUpdate(android.content.Context,android.appwidget.AppWidgetManager,int[])
-com.timewidget.digitalclock.DigitalClockWidget: DigitalClockWidget()
-com.timewidget.digitalclock.DigitalClockWidget: void updateWidget(android.content.Context,android.appwidget.AppWidgetManager,int)
 com.timewidget.digitalclock.DigitalClockWidget: void updateAll(android.content.Context)
+com.timewidget.digitalclock.DigitalClockWidget: void updateWidget(android.content.Context,android.appwidget.AppWidgetManager,int)
 com.timewidget.digitalclock.DigitalClockWidget: void onEnabled(android.content.Context)
+com.timewidget.digitalclock.DigitalClockWidget: void onReceive(android.content.Context,android.content.Intent)
+com.timewidget.digitalclock.DigitalClockWidget: void setAlarm(android.content.Context)
+com.timewidget.digitalclock.DigitalClockWidget: DigitalClockWidget()

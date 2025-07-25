@@ -24,4 +24,4 @@ The root reachable resources are:
 Unused resources are: 
  color:black:2130771968
  color:white:2130771969
-Resource shrinking did not work (grew from 4047 to 4151); using original instead
+Resource shrinking did not work (grew from 4042 to 4146); using original instead

@@ -14,7 +14,8 @@ import java.util.Calendar;
 import java.util.Locale;
 
 /**
- * Ultra-lightweight digital clock widget with perfect phone time sync
+ * Ultra-lightweight digital clock widget with REAL-TIME precision
+ * Updates every second for maximum accuracy
  */
 public class DigitalClockWidget extends AppWidgetProvider {
 
@@ -22,7 +23,7 @@ public class DigitalClockWidget extends AppWidgetProvider {
 
     static void updateWidget(Context context, AppWidgetManager manager, int widgetId) {
         Calendar cal = Calendar.getInstance();
-        String time = new SimpleDateFormat("HH:mm", Locale.getDefault()).format(cal.getTime());
+        String time = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(cal.getTime());
         String date = new SimpleDateFormat("EEE, MMM d", Locale.getDefault()).format(cal.getTime());
 
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.digital_clock_widget);
@@ -41,7 +42,12 @@ public class DigitalClockWidget extends AppWidgetProvider {
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, DigitalClockWidget.class).setAction(UPDATE_ACTION);
         PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-        am.setRepeating(AlarmManager.ELAPSED_REALTIME, SystemClock.elapsedRealtime() + 30000, 30000, pi);
+        
+        // Real-time precision: Update every 1 second
+        long intervalMillis = 1000; // 1 second
+        long triggerAtMillis = SystemClock.elapsedRealtime() + intervalMillis;
+        
+        am.setRepeating(AlarmManager.ELAPSED_REALTIME, triggerAtMillis, intervalMillis, pi);
     }
 
     @Override

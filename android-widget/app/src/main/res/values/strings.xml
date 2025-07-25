@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Digital Clock Widget</string>
-    <string name="widget_description">Simple digital clock widget showing current time and date</string>
+    <string name="widget_description">Real-time digital clock with seconds precision</string>
 </resources>
