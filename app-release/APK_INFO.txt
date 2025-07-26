@@ -1,0 +1,20 @@
+Bubble Floating Android App
+Version: 1.0
+Size: ~1.5MB (estimated)
+Features:
+- Floating bubble overlay
+- Draggable bubble
+- Tap to show "Hello Sagar"
+- Minimal APK size
+
+To build the actual APK:
+1. Install Android Studio
+2. Open this project
+3. Run: ./gradlew assembleRelease
+4. APK will be in: app/build/outputs/apk/release/
+
+The APK will be lightweight (~1.5MB) due to:
+- Minimal dependencies
+- ProGuard optimization
+- R8 code shrinking
+- No unnecessary resources
