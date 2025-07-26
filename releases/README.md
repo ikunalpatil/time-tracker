@@ -1,69 +1,88 @@
-# Bubble App Releases
+# Bubble Floating App - APK Downloads
 
-## Available APK Files
+## 📱 Available APK Files
 
-### ✅ bubble-app-working.apk (WORKING APK!)
-- **Size**: 2.5MB
-- **Type**: Real, installable Android APK
-- **Status**: ✅ Fully functional and ready to install
-- **Features**: 
+### ✅ **RECOMMENDED: bubble-app-signed.apk** (2.6MB)
+- **Fully signed and installable APK**
+- **Compatible with all Android devices (API 23+)**
+- **Features:**
   - Floating bubble overlay
-  - Draggable bubble functionality
+  - Draggable bubble
   - Tap to show "Hello Sagar"
-  - Minimal size optimization
-  - Works on Android 6.0+ (API 23+)
+  - Minimal size (~2.6MB)
+  - Properly signed for installation
 
-### bubble-app-placeholder.apk
-- **Size**: ~2.3KB
-- **Type**: Placeholder APK structure
-- **Purpose**: Demonstrates the APK structure but is not installable
-- **Note**: This is a placeholder file showing the project structure
+### 📋 **Alternative: bubble-app-working.apk** (2.6MB)
+- **Unsigned APK** (may not install on some devices)
+- Same functionality as signed version
+- Use only if signed version doesn't work
 
-## Installation Instructions
+### ⚠️ **Placeholder: bubble-app-placeholder.apk** (2.3KB)
+- **NOT installable** - shows project structure only
+- For reference purposes only
 
-### For bubble-app-working.apk:
+## 🚀 Installation Instructions
 
-1. **Enable "Install from unknown sources"** in your Android settings
-2. **Download** the `bubble-app-working.apk` file
-3. **Install** the APK on your device
-4. **Grant overlay permission** when prompted
-5. **The bubble will appear** on your screen
-6. **Drag** the bubble to move it around
-7. **Tap** the bubble to see "Hello Sagar"
+### **Step 1: Enable Unknown Sources**
+1. Go to **Settings** → **Security** (or **Privacy**)
+2. Enable **"Install from unknown sources"** or **"Install unknown apps"**
+3. Allow installation from your file manager/browser
 
-## Permissions Required
+### **Step 2: Download and Install**
+1. **Download** `bubble-app-signed.apk` (recommended)
+2. **Open** the downloaded APK file
+3. **Tap "Install"** when prompted
+4. **Wait** for installation to complete
 
-- `SYSTEM_ALERT_WINDOW`: Required for floating overlay
-- `FOREGROUND_SERVICE`: Keeps the bubble service running
+### **Step 3: Grant Permissions**
+1. **Open** the Bubble App
+2. **Grant overlay permission** when prompted
+3. **Allow** the app to display over other apps
 
-## Technical Details
+## 🔧 Troubleshooting Installation Issues
 
-- **Minimum Android**: 6.0 (API 23)
-- **Target Android**: 14 (API 34)
-- **APK Size**: 2.5MB (optimized)
-- **Build Date**: July 26, 2025
-- **Features**: Fully functional bubble floating app
+### **"App not installed" Error**
+- **Solution**: Use `bubble-app-signed.apk` instead of unsigned version
+- **Alternative**: Enable "Install unknown apps" for your browser/file manager
 
-## How the APK was Built
+### **"Parse error" or "Corrupted APK"**
+- **Solution**: Re-download the APK file
+- **Check**: Ensure file size is ~2.6MB (not 2.3KB)
 
-The working APK was built using:
-- Android SDK Build Tools 33.0.1
-- Gradle 8.5
-- Java 21
-- ProGuard optimization enabled
-- R8 code shrinking enabled
+### **"Blocked by Play Protect"**
+- **Solution**: Tap "Install anyway" or disable Play Protect temporarily
+- **Note**: This is a self-signed app, safe to install
 
-## Troubleshooting
+### **"Insufficient storage"**
+- **Solution**: Free up space on your device (need ~5MB free)
 
-If you encounter issues:
-1. **"APK not installed"** - Enable "Install from unknown sources"
-2. **"Permission denied"** - Grant overlay permission in settings
-3. **"App crashes"** - Check Android version compatibility (needs 6.0+)
+### **"App not compatible"**
+- **Requirement**: Android 6.0 (API 23) or higher
+- **Check**: Go to Settings → About phone → Android version
 
-## Source Code
+## 📋 Technical Details
 
-The complete source code is available in the main project directory. You can:
-- View the code structure
-- Modify the app functionality
-- Build your own version
-- Contribute improvements
+- **Package Name**: `com.example.bubbleapp`
+- **Minimum SDK**: API 23 (Android 6.0)
+- **Target SDK**: API 34 (Android 14)
+- **Permissions Required**:
+  - `SYSTEM_ALERT_WINDOW` (overlay permission)
+  - `FOREGROUND_SERVICE` (background service)
+
+## 🎯 How to Use
+
+1. **Launch** the app
+2. **Grant** overlay permission
+3. **See** the floating bubble appear
+4. **Drag** the bubble around the screen
+5. **Tap** the bubble to see "Hello Sagar"
+6. **Enjoy** your floating bubble!
+
+## 🔒 Security Note
+
+The APK is self-signed for development purposes. This is normal for apps not distributed through Google Play Store. The app only requests necessary permissions for its functionality.
+
+---
+
+**Repository**: https://github.com/ikunalpatil/time-tracker  
+**Last Updated**: July 26, 2024
