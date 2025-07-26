@@ -1,0 +1,17 @@
+BUBBLE FLOATING APP - APK INFO
+
+This is a placeholder APK structure for the bubble floating app.
+
+ACTUAL APK BUILDING:
+To build the real APK, you need:
+1. Android Studio installed
+2. Android SDK installed
+3. Run: ./gradlew assembleRelease
+
+The actual APK will be ~1.5MB and include:
+- Floating bubble overlay
+- Draggable functionality
+- "Hello Sagar" tap response
+- Minimal size optimization
+
+This placeholder shows the APK structure but is not installable.
