@@ -65,7 +65,7 @@ public class BubbleService extends Service {
                     case MotionEvent.ACTION_UP:
                         if (Math.abs(event.getRawX() - initialTouchX) < 10 && 
                             Math.abs(event.getRawY() - initialTouchY) < 10) {
-                            Toast.makeText(BubbleService.this, "Hello Sagar", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(BubbleService.this, "hello kaira", Toast.LENGTH_SHORT).show();
                         }
                         return true;
                 }
