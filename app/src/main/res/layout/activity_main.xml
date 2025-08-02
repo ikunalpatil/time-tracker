@@ -4,14 +4,14 @@
     android:layout_height="match_parent"
     android:background="@android:color/black"
     android:padding="16dp">
-
+    
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:orientation="vertical"
         android:gravity="center">
-
+        
         <TextView
             android:id="@+id/timeTextView"
             android:layout_width="wrap_content"
@@ -23,7 +23,7 @@
             android:textStyle="bold"
             android:letterSpacing="0.1"
             android:gravity="center" />
-
+            
         <TextView
             android:id="@+id/dateTextView"
             android:layout_width="wrap_content"
@@ -35,7 +35,23 @@
             android:textStyle="normal"
             android:layout_marginTop="8dp"
             android:gravity="center" />
-
+            
     </LinearLayout>
-
+    
+    <TextView
+        android:id="@+id/permissionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp"
+        android:text="Tap to enable Always On Display permissions"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:fontFamily="sans-serif-light"
+        android:background="@android:color/transparent"
+        android:padding="16dp"
+        android:visibility="gone"
+        android:gravity="center" />
+        
 </RelativeLayout>

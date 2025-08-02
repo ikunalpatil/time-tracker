@@ -20,7 +20,7 @@ public class AODService extends Service {
         super.onCreate();
         createNotificationChannel();
         
-        // Acquire wake lock
+        // Acquire wake lock for AOD functionality
         PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
         wakeLock = powerManager.newWakeLock(
             PowerManager.PARTIAL_WAKE_LOCK,
@@ -38,8 +38,9 @@ public class AODService extends Service {
             .setPriority(NotificationCompat.PRIORITY_LOW)
             .setOngoing(true)
             .build();
-
+            
         startForeground(NOTIFICATION_ID, notification);
+        
         return START_STICKY;
     }
 
