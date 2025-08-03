@@ -1,51 +1,85 @@
 package com.example.bubbleapp;
 
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.widget.Toast;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
-    private static final int OVERLAY_PERMISSION_REQUEST_CODE = 1234;
+    private Button startServiceButton;
+    private Button stopServiceButton;
+    private Button permissionButton;
+    private TextView statusText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (!Settings.canDrawOverlays(this)) {
-                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                        Uri.parse("package:" + getPackageName()));
-                startActivityForResult(intent, OVERLAY_PERMISSION_REQUEST_CODE);
-            } else {
-                startBubbleService();
+
+        startServiceButton = findViewById(R.id.startServiceButton);
+        stopServiceButton = findViewById(R.id.stopServiceButton);
+        permissionButton = findViewById(R.id.permissionButton);
+        statusText = findViewById(R.id.statusText);
+
+        startServiceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startProximityService();
             }
+        });
+
+        stopServiceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stopProximityService();
+            }
+        });
+
+        permissionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openOverlayPermissionSettings();
+            }
+        });
+
+        updateStatus();
+    }
+
+    private void startProximityService() {
+        Intent serviceIntent = new Intent(this, ProximityService.class);
+        startForegroundService(serviceIntent);
+        updateStatus();
+    }
+
+    private void stopProximityService() {
+        Intent serviceIntent = new Intent(this, ProximityService.class);
+        stopService(serviceIntent);
+        updateStatus();
+    }
+
+    private void openOverlayPermissionSettings() {
+        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+        startActivity(intent);
+    }
+
+    private void updateStatus() {
+        if (ProximityService.isRunning()) {
+            statusText.setText("Service is running - Wave hand over proximity sensor to lighten lockscreen");
+            startServiceButton.setEnabled(false);
+            stopServiceButton.setEnabled(true);
         } else {
-            startBubbleService();
+            statusText.setText("Service is stopped");
+            startServiceButton.setEnabled(true);
+            stopServiceButton.setEnabled(false);
         }
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == OVERLAY_PERMISSION_REQUEST_CODE) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (Settings.canDrawOverlays(this)) {
-                    startBubbleService();
-                } else {
-                    Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }
-    }
-
-    private void startBubbleService() {
-        Intent intent = new Intent(this, BubbleService.class);
-        startService(intent);
-        finish();
+    protected void onResume() {
+        super.onResume();
+        updateStatus();
     }
 }
