@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Proximity Lockscreen"
+        android:text="Proximity Screen Wake"
         android:textSize="24sp"
         android:textStyle="bold"
         android:layout_marginBottom="16dp" />
@@ -47,7 +47,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Wave your hand over the proximity sensor to lighten the lockscreen"
+        android:text="Wave your hand over the proximity sensor to turn on the screen for 5 seconds"
         android:textSize="14sp"
         android:gravity="center"
         android:layout_marginTop="32dp" />

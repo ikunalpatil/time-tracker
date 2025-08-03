@@ -7,7 +7,7 @@ android {
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.example.proximitylockscreen"
+        applicationId "com.example.proximityscreenwake"
         minSdk 23
         targetSdk 34
         versionCode 1

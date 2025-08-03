@@ -1,8 +1,8 @@
-# Proximity Lockscreen Android App - Project Summary
+# Proximity Screen Wake Android App - Project Summary
 
 ## What Has Been Created
 
-I have successfully created a complete Android application that uses the proximity sensor to lighten the lockscreen when you wave your hand over it. The app is designed to be ultra-lightweight and includes all necessary components for a signed APK.
+I have successfully created a complete Android application that uses the proximity sensor to turn on the screen for 5 seconds when you wave your hand over it, specifically designed for lockscreen functionality. The app is designed to be ultra-lightweight and includes all necessary components for a signed APK.
 
 ## Project Structure
 
@@ -39,15 +39,15 @@ workspace/
 - **Debounced Detection**: 500ms debounce prevents rapid triggering
 - **Efficient Usage**: Uses SENSOR_DELAY_NORMAL for optimal performance
 
-### 2. Lockscreen Brightness Control
-- **Brightness Management**: Controls screen brightness via Settings.System
-- **Dynamic Adjustment**: Sets brightness to 255 (max) when proximity detected
-- **Restoration**: Returns to 128 (moderate) when proximity removed
-- **Screen Wake**: Wakes up locked screen when needed
+### 2. Screen Wake Control
+- **Screen Wake**: Turns on the screen when proximity is detected
+- **5-Second Timer**: Keeps screen on for exactly 5 seconds
+- **Auto Turn Off**: Automatically turns off screen after timer expires
+- **Brightness Control**: Sets maximum brightness for visibility
 
 ### 3. Background Service
 - **Foreground Service**: Runs with persistent notification
-- **Wake Lock**: Keeps service running efficiently
+- **Wake Lock Management**: Keeps service running and controls screen
 - **Auto-restart**: Service restarts if killed by system
 
 ### 4. User Interface
@@ -72,7 +72,8 @@ workspace/
 
 2. **ProximityService.java**
    - Background service with sensor event handling
-   - Brightness control implementation
+   - Screen wake control implementation
+   - 5-second timer management
    - Foreground service with notification
    - Wake lock management
 
@@ -83,9 +84,10 @@ workspace/
 ### Permissions Required
 - `SYSTEM_ALERT_WINDOW`: For overlay functionality
 - `FOREGROUND_SERVICE`: To run as foreground service
-- `WAKE_LOCK`: To keep service running
+- `WAKE_LOCK`: To keep service running and wake screen
 - `DISABLE_KEYGUARD`: For lockscreen interaction
 - `RECEIVE_BOOT_COMPLETED`: For auto-start on boot
+- `WRITE_SETTINGS`: For brightness control
 - `android.hardware.sensor.proximity`: Hardware requirement
 
 ### Performance Optimizations
@@ -93,6 +95,7 @@ workspace/
 - **Efficient Sensor Usage**: Optimized sensor polling
 - **ProGuard Optimization**: Code obfuscation and size reduction
 - **Debounced Events**: Prevents excessive triggering
+- **Timer Management**: Efficient screen on/off timing
 
 ## Build System
 
@@ -138,17 +141,18 @@ The `setup_and_build.sh` script provides:
 5. Start service and test functionality
 
 ### Usage Instructions
-1. Open "Proximity Lockscreen" app
+1. Open "Proximity Screen Wake" app
 2. Tap "Start Service"
-3. Grant overlay permissions if prompted
-4. Wave hand over proximity sensor
-5. Observe lockscreen brightness change
+3. Grant overlay and settings permissions if prompted
+4. Lock your device or let screen turn off
+5. Wave hand over proximity sensor
+6. Screen will turn on for 5 seconds, then turn off automatically
 
 ## Troubleshooting
 
 ### Common Issues
-1. **Service not starting**: Check permissions and battery optimization
-2. **No brightness change**: Disable auto-brightness and check permissions
+1. **Screen doesn't turn on**: Check permissions and battery optimization
+2. **Screen turns off immediately**: Disable battery optimization for app
 3. **App crashes**: Clear data/cache or reinstall
 4. **Build failures**: Ensure proper SDK setup and Java version
 
@@ -174,7 +178,7 @@ The `setup_and_build.sh` script provides:
 ## Future Enhancements
 
 ### Potential Improvements
-- **Customizable Brightness**: User-configurable brightness levels
+- **Customizable Duration**: User-configurable screen on duration
 - **Gesture Patterns**: Advanced gesture recognition
 - **Sensor Integration**: Additional sensor support
 - **Power Management**: Advanced battery optimization
@@ -194,7 +198,7 @@ The `setup_and_build.sh` script provides:
 
 ## Conclusion
 
-This project provides a complete, production-ready Android application that successfully implements proximity sensor-based lockscreen brightness control. The app is:
+This project provides a complete, production-ready Android application that successfully implements proximity sensor-based screen wake control. The app is:
 
 - **Ultra-lightweight**: Minimal resource usage
 - **Well-documented**: Comprehensive documentation and guides
@@ -202,4 +206,4 @@ This project provides a complete, production-ready Android application that succ
 - **Properly signed**: Ready-to-install signed APK
 - **User-friendly**: Simple interface and clear instructions
 
-The implementation follows Android best practices and provides a solid foundation for further development and customization.
+The implementation follows Android best practices and provides the exact functionality requested - turning on the screen for 5 seconds when proximity is detected, specifically for lockscreen use cases.

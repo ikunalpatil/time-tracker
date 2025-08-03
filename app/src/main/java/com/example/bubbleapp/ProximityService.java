@@ -11,6 +11,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Build;
+import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.provider.Settings;
@@ -25,10 +26,14 @@ public class ProximityService extends Service implements SensorEventListener {
     private SensorManager sensorManager;
     private Sensor proximitySensor;
     private PowerManager.WakeLock wakeLock;
+    private PowerManager.WakeLock screenWakeLock;
     private WindowManager windowManager;
     private boolean isProximityNear = false;
     private long lastProximityChange = 0;
     private static final long PROXIMITY_DEBOUNCE_TIME = 500; // 500ms debounce
+    private static final long SCREEN_ON_DURATION = 5000; // 5 seconds
+    private Handler screenHandler;
+    private boolean isScreenOnTimerActive = false;
 
     @Override
     public void onCreate() {
@@ -39,12 +44,18 @@ public class ProximityService extends Service implements SensorEventListener {
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         proximitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
         
-        // Initialize power manager for wake lock
+        // Initialize power manager for wake locks
         PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ProximityService::WakeLock");
+        screenWakeLock = powerManager.newWakeLock(
+            PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP,
+            "ProximityService::ScreenWakeLock");
         
         // Initialize window manager
         windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+        
+        // Initialize handler for screen timer
+        screenHandler = new Handler();
         
         createNotificationChannel();
     }
@@ -76,6 +87,15 @@ public class ProximityService extends Service implements SensorEventListener {
         if (wakeLock != null && wakeLock.isHeld()) {
             wakeLock.release();
         }
+        
+        if (screenWakeLock != null && screenWakeLock.isHeld()) {
+            screenWakeLock.release();
+        }
+        
+        // Cancel any pending screen timer
+        if (screenHandler != null) {
+            screenHandler.removeCallbacksAndMessages(null);
+        }
     }
 
     @Override
@@ -101,11 +121,11 @@ public class ProximityService extends Service implements SensorEventListener {
                 lastProximityChange = currentTime;
                 
                 if (isNear) {
-                    // Object detected - lighten lockscreen
-                    lightenLockscreen();
+                    // Object detected - turn on screen and keep it on for 5 seconds
+                    turnOnScreenForDuration();
                 } else {
-                    // Object removed - restore normal brightness
-                    restoreLockscreen();
+                    // Object removed - let the timer handle screen off
+                    // Don't immediately turn off screen, let the 5-second timer expire
                 }
             }
         }
@@ -116,31 +136,55 @@ public class ProximityService extends Service implements SensorEventListener {
         // Not used
     }
 
-    private void lightenLockscreen() {
+    private void turnOnScreenForDuration() {
+        // Cancel any existing timer
+        if (screenHandler != null) {
+            screenHandler.removeCallbacksAndMessages(null);
+        }
+        
+        // Turn on the screen
+        turnOnScreen();
+        
+        // Set timer to turn off screen after 5 seconds
+        screenHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                turnOffScreen();
+            }
+        }, SCREEN_ON_DURATION);
+        
+        isScreenOnTimerActive = true;
+    }
+
+    private void turnOnScreen() {
         try {
-            // Increase screen brightness to maximum
+            // Wake up the screen if it's locked or off
+            if (screenWakeLock != null && !screenWakeLock.isHeld()) {
+                screenWakeLock.acquire(SCREEN_ON_DURATION + 1000); // Acquire for 6 seconds to be safe
+            }
+            
+            // Set screen brightness to maximum for better visibility
             Settings.System.putInt(getContentResolver(), 
                 Settings.System.SCREEN_BRIGHTNESS, 255);
             
-            // Wake up the screen if it's locked
-            PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
-            if (powerManager != null) {
-                PowerManager.WakeLock screenWakeLock = powerManager.newWakeLock(
-                    PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP,
-                    "ProximityService::ScreenWakeLock");
-                screenWakeLock.acquire(1000); // Wake for 1 second
-                screenWakeLock.release();
-            }
         } catch (Exception e) {
             // Handle permission issues gracefully
         }
     }
 
-    private void restoreLockscreen() {
+    private void turnOffScreen() {
         try {
-            // Restore to a moderate brightness level
+            // Release screen wake lock to allow screen to turn off
+            if (screenWakeLock != null && screenWakeLock.isHeld()) {
+                screenWakeLock.release();
+            }
+            
+            // Restore moderate brightness level
             Settings.System.putInt(getContentResolver(), 
                 Settings.System.SCREEN_BRIGHTNESS, 128);
+            
+            isScreenOnTimerActive = false;
+            
         } catch (Exception e) {
             // Handle permission issues gracefully
         }
@@ -165,7 +209,7 @@ public class ProximityService extends Service implements SensorEventListener {
     private Notification createNotification() {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle("Proximity Sensor Active")
-            .setContentText("Wave hand over sensor to lighten lockscreen")
+            .setContentText("Wave hand over sensor to turn on screen for 5 seconds")
             .setSmallIcon(android.R.drawable.ic_dialog_info)
             .setPriority(NotificationCompat.PRIORITY_LOW)
             .setOngoing(true);

@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateStatus() {
         if (ProximityService.isRunning()) {
-            statusText.setText("Service is running - Wave hand over proximity sensor to lighten lockscreen");
+            statusText.setText("Service is running - Wave hand over proximity sensor to turn on screen for 5 seconds");
             startServiceButton.setEnabled(false);
             stopServiceButton.setEnabled(true);
         } else {

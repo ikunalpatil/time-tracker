@@ -1,11 +1,12 @@
-# Proximity Lockscreen Android App
+# Proximity Screen Wake Android App
 
-A lightweight Android application that uses the proximity sensor to lighten the lockscreen when you wave your hand over it.
+A lightweight Android application that uses the proximity sensor to turn on the screen for 5 seconds when you wave your hand over it, specifically designed for lockscreen functionality.
 
 ## Features
 
 - **Proximity Sensor Integration**: Monitors the device's proximity sensor for hand gestures
-- **Lockscreen Brightness Control**: Automatically increases screen brightness when proximity is detected
+- **Screen Wake Control**: Automatically turns on the screen when proximity is detected
+- **5-Second Timer**: Keeps the screen on for exactly 5 seconds after detection
 - **Ultra Lightweight**: Minimal resource usage and small APK size
 - **Auto-start on Boot**: Automatically starts the service when the device boots
 - **Foreground Service**: Runs as a foreground service with persistent notification
@@ -14,18 +15,20 @@ A lightweight Android application that uses the proximity sensor to lighten the 
 ## How It Works
 
 1. **Sensor Monitoring**: The app continuously monitors the proximity sensor
-2. **Gesture Detection**: When an object (hand) is detected near the sensor, it triggers the brightness increase
-3. **Brightness Control**: Sets screen brightness to maximum (255) when proximity is detected
-4. **Restoration**: Returns brightness to moderate level (128) when proximity is no longer detected
-5. **Screen Wake**: Wakes up the screen if it's locked
+2. **Gesture Detection**: When an object (hand) is detected near the sensor, it triggers the screen wake
+3. **Screen Wake**: Turns on the screen and sets brightness to maximum for visibility
+4. **5-Second Timer**: Keeps the screen on for exactly 5 seconds
+5. **Auto Turn Off**: Automatically turns off the screen after 5 seconds
+6. **Lockscreen Compatible**: Works specifically when the device is locked or screen is off
 
 ## Permissions Required
 
 - `android.permission.SYSTEM_ALERT_WINDOW` - For overlay functionality
 - `android.permission.FOREGROUND_SERVICE` - To run as foreground service
-- `android.permission.WAKE_LOCK` - To keep the service running
+- `android.permission.WAKE_LOCK` - To keep the service running and wake screen
 - `android.permission.DISABLE_KEYGUARD` - For lockscreen interaction
 - `android.permission.RECEIVE_BOOT_COMPLETED` - For auto-start on boot
+- `android.permission.WRITE_SETTINGS` - For brightness control
 - `android.hardware.sensor.proximity` - Hardware feature requirement
 
 ## Installation
@@ -74,11 +77,11 @@ A lightweight Android application that uses the proximity sensor to lighten the 
 
 1. Run the provided build script:
    ```bash
-   chmod +x build_proximity_apk.sh
-   ./build_proximity_apk.sh
+   chmod +x setup_and_build.sh
+   ./setup_and_build.sh
    ```
 
-2. Note: This creates the APK structure but requires proper Android SDK setup for full compilation
+2. This will automatically set up the SDK and build the APK
 
 ## Installation on Device
 
@@ -87,15 +90,19 @@ A lightweight Android application that uses the proximity sensor to lighten the 
 3. **Grant Permissions**: 
    - Allow overlay permissions when prompted
    - Grant system alert window permission
+   - Grant write settings permission for brightness control
 4. **Start Service**: Open the app and tap "Start Service"
 
 ## Usage
 
-1. **Launch the App**: Open "Proximity Lockscreen" from your app drawer
+1. **Launch the App**: Open "Proximity Screen Wake" from your app drawer
 2. **Start Service**: Tap the "Start Service" button
 3. **Grant Permissions**: Follow the prompts to grant necessary permissions
-4. **Test Functionality**: Wave your hand over the proximity sensor (usually near the earpiece)
-5. **Observe**: The lockscreen should brighten when proximity is detected
+4. **Test Functionality**: 
+   - Lock your device or let the screen turn off
+   - Wave your hand over the proximity sensor (usually near the earpiece)
+   - The screen should turn on and stay on for 5 seconds
+5. **Observe**: The screen will automatically turn off after 5 seconds
 
 ## Configuration
 
@@ -103,7 +110,7 @@ A lightweight Android application that uses the proximity sensor to lighten the 
 
 The app automatically starts on device boot. To disable this:
 1. Go to your device's app settings
-2. Find "Proximity Lockscreen"
+2. Find "Proximity Screen Wake"
 3. Disable "Auto-start" or "Start on boot"
 
 ### Service Management
@@ -116,20 +123,23 @@ The app automatically starts on device boot. To disable this:
 
 ### Common Issues
 
-1. **App doesn't respond to proximity sensor**:
+1. **Screen doesn't turn on when proximity detected**:
    - Ensure the service is running (check notification)
    - Verify proximity sensor permissions
+   - Check if device has a working proximity sensor
    - Test with another proximity sensor app
 
-2. **Brightness doesn't change**:
-   - Check if auto-brightness is enabled (disable it)
-   - Verify system settings permissions
-   - Some devices may require additional permissions
+2. **Screen turns off immediately**:
+   - Check battery optimization settings
+   - Disable battery optimization for this app
+   - Ensure the app is not being killed by the system
+   - Verify wake lock permissions
 
 3. **Service stops unexpectedly**:
    - Check battery optimization settings
    - Disable battery optimization for this app
    - Ensure the app is not being killed by the system
+   - Check device's aggressive battery saving features
 
 4. **App crashes on startup**:
    - Clear app data and cache
@@ -148,7 +158,7 @@ The app automatically starts on device boot. To disable this:
 ### Architecture
 
 - **MainActivity**: User interface for service control
-- **ProximityService**: Background service handling sensor events
+- **ProximityService**: Background service handling sensor events and screen control
 - **BootReceiver**: Broadcast receiver for auto-start functionality
 
 ### Key Components
@@ -157,6 +167,7 @@ The app automatically starts on device boot. To disable this:
 2. **PowerManager**: Handles wake locks and screen control
 3. **Settings.System**: Controls screen brightness
 4. **NotificationManager**: Manages foreground service notification
+5. **Handler**: Manages 5-second timer for screen control
 
 ### Performance Optimizations
 
@@ -164,6 +175,7 @@ The app automatically starts on device boot. To disable this:
 - **Efficient Sensor Usage**: Uses SENSOR_DELAY_NORMAL for optimal performance
 - **Minimal Resource Usage**: Lightweight service with minimal memory footprint
 - **ProGuard Optimization**: Code obfuscation and size reduction
+- **Timer Management**: Efficient handling of screen on/off timing
 
 ## Security Considerations
 
@@ -187,8 +199,9 @@ For issues or questions:
 ## Future Enhancements
 
 Potential improvements for future versions:
-- Customizable brightness levels
+- Customizable screen on duration
 - Gesture pattern recognition
 - Integration with other sensors
 - Advanced power management
 - User interface improvements
+- Multiple proximity detection patterns
