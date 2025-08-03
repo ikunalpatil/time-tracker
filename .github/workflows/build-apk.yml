@@ -1,0 +1,75 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: [ main, master, cursor/lighten-lockscreen-with-proximity-sensor-8872 ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v2
+      
+    - name: Cache Gradle packages
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-
+          
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+      
+    - name: Build with Gradle
+      run: ./gradlew assembleRelease
+      
+    - name: Upload APK
+      uses: actions/upload-artifact@v3
+      with:
+        name: proximity-screen-wake-apk
+        path: app/build/outputs/apk/release/app-release.apk
+        
+    - name: Create Release
+      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master' || github.ref == 'refs/heads/cursor/lighten-lockscreen-with-proximity-sensor-8872'
+      uses: softprops/action-gh-release@v1
+      with:
+        files: app/build/outputs/apk/release/app-release.apk
+        tag_name: v1.0.0
+        name: Proximity Screen Wake v1.0.0
+        body: |
+          # Proximity Screen Wake APK
+          
+          ## What it does:
+          - Uses proximity sensor to detect hand movement
+          - Turns ON screen for 5 seconds when proximity detected
+          - Works specifically on lockscreen
+          - Ultra-lightweight implementation
+          
+          ## Installation:
+          1. Enable "Unknown Sources" in Android settings
+          2. Install this APK
+          3. Grant necessary permissions
+          4. Start service and test functionality
+          
+          ## Requirements:
+          - Android 6.0+ (API 23+)
+          - Device with proximity sensor
+          
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
