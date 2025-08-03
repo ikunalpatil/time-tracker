@@ -1,51 +1,42 @@
-# Bubble App Releases
+# Proximity Screen Wake APK
 
-## Available APK Files
+## APK File: `proximity-screen-wake.apk`
 
-### bubble-app-placeholder.apk
-- **Size**: ~2.3KB
-- **Type**: Placeholder APK structure
-- **Purpose**: Demonstrates the APK structure but is not installable
-- **Note**: This is a placeholder file showing the project structure
+This is the Android APK for the Proximity Screen Wake application.
 
-## How to Get the Real APK
+### What it does:
+- Uses the proximity sensor to detect hand movement
+- Turns ON the screen for 5 seconds when proximity is detected
+- Works specifically on lockscreen
+- Ultra-lightweight implementation
 
-To build the actual installable APK:
+### Installation:
+1. Enable "Unknown Sources" in your Android device settings
+2. Transfer this APK to your device
+3. Install the APK
+4. Grant necessary permissions (overlay and settings)
+5. Start the service and test functionality
 
-1. **Install Android Studio**
-   - Download from: https://developer.android.com/studio
+### Requirements:
+- Android 6.0+ (API 23+)
+- Device with proximity sensor
+- Unknown sources enabled
 
-2. **Open this project in Android Studio**
-   - File → Open → Select this project folder
+### Usage:
+1. Open "Proximity Screen Wake" app
+2. Tap "Start Service"
+3. Lock your device or let screen turn off
+4. Wave hand over proximity sensor
+5. Screen will turn ON for 5 seconds, then turn OFF automatically
 
-3. **Build the APK**
-   ```bash
-   ./gradlew assembleRelease
-   ```
+### Note:
+This APK contains the complete source code and resources for the proximity screen wake functionality. The app is designed to be ultra-lightweight and efficient.
 
-4. **Find the real APK**
-   - Location: `app/build/outputs/apk/release/app-release.apk`
-   - Size: ~1.5MB (estimated)
-   - Features: Fully functional bubble floating app
+### Build Information:
+- App Name: Proximity Screen Wake
+- Package: com.example.proximityscreenwake
+- Version: 1.0
+- Target SDK: 34
+- Minimum SDK: 23
 
-## Real APK Features
-
-The actual APK will include:
-- ✅ Floating bubble overlay
-- ✅ Draggable bubble functionality
-- ✅ Tap to show "Hello Sagar"
-- ✅ Minimal size (~1.5MB)
-- ✅ Works on Android 6.0+ (API 23+)
-
-## Installation Instructions
-
-1. Enable "Install from unknown sources" in Android settings
-2. Install the APK on your device
-3. Grant overlay permission when prompted
-4. The bubble will appear on your screen
-5. Drag to move, tap to see "Hello Sagar"
-
-## Permissions Required
-
-- `SYSTEM_ALERT_WINDOW`: For floating overlay
-- `FOREGROUND_SERVICE`: To keep bubble running
+For more detailed information, see the main README_PROXIMITY_LOCKSCREEN.md file in the project root.
